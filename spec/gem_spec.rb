@@ -4,7 +4,7 @@ require 'spec_helper'
 
 module GemCodebreakerAmidasd
   RSpec.describe GemCodebreaker do
-    let(:gemCodebreaker) { GemCodebreaker.new(15, 3) }
+    let(:gemCodebreaker) { GemCodebreaker.new() }
 
     specify 'gemCodebreaker attributes' do
       expect(gemCodebreaker).to respond_to(:error)
@@ -32,10 +32,10 @@ module GemCodebreakerAmidasd
       expect(gemCodebreaker).not_to respond_to(:array_hints=)
 
       expect(gemCodebreaker).to respond_to(:total_count_attempt)
-      expect(gemCodebreaker).to respond_to(:total_count_attempt=)
+      expect(gemCodebreaker).not_to respond_to(:total_count_attempt=)
 
       expect(gemCodebreaker).to respond_to(:total_count_hints)
-      expect(gemCodebreaker).to respond_to(:total_count_hints=)
+      expect(gemCodebreaker).not_to respond_to(:total_count_hints=)
 
       expect(gemCodebreaker).to respond_to(:length_code)
       expect(gemCodebreaker).to respond_to(:length_code=)
@@ -45,15 +45,27 @@ module GemCodebreakerAmidasd
 
       expect(gemCodebreaker).to respond_to(:min_num)
       expect(gemCodebreaker).to respond_to(:min_num=)
+
+      expect(gemCodebreaker).to respond_to(:difficulty_hash)
+      expect(gemCodebreaker).to respond_to(:difficulty_hash=)
+
+      expect(gemCodebreaker).to respond_to(:difficulty)
+      expect(gemCodebreaker).to respond_to(:difficulty=)
+    end
+
+    before do
+      gemCodebreaker.set_difficulty(:easy)
+      # allow(gemCodebreaker).to receive(:set_difficulty).with(:easy)
     end
 
     describe '#initialize' do
+
       it 'sets total_count_attempt' do
         expect(gemCodebreaker.instance_variable_get(:@total_count_attempt)).to be(15)
       end
 
       it 'sets total_count_hints' do
-        expect(gemCodebreaker.instance_variable_get(:@total_count_hints)).to be(3)
+        expect(gemCodebreaker.instance_variable_get(:@total_count_hints)).to be(2)
       end
 
       it 'sets size array_hints' do
@@ -93,9 +105,8 @@ module GemCodebreakerAmidasd
 
         it 'new each time game starts' do
           code1 = secret_code
-          gemCodebreaker2 = GemCodebreaker.new(15, 3)
+          gemCodebreaker2 = GemCodebreaker.new()
           code2 = gemCodebreaker2.instance_variable_get(:@secret_code)
-
           expect(code1).not_to eql(code2)
         end
       end

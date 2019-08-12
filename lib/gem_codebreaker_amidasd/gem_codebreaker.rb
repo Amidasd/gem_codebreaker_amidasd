@@ -1,13 +1,17 @@
 module GemCodebreakerAmidasd
+  DIFFICULTY_HASH = {:easy => { total_count_attempt: 15, total_count_hints: 2 },
+                     :medium => { total_count_attempt: 10, total_count_hints: 1 },
+                     :hell => { total_count_attempt: 5, total_count_hints: 1 }}
+
   class GemCodebreaker
-    attr_accessor :total_count_attempt, :total_count_hints
+
+    attr_accessor :difficulty_hash, :difficulty
     attr_accessor :length_code, :max_num, :min_num
-    attr_reader :error, :win, :count_plus, :count_minus, :hint
+    attr_reader :total_count_attempt, :total_count_hints, :error, :win, :count_plus, :count_minus, :hint
     attr_reader :count_attempt, :secret_code, :array_hints
 
-    def initialize(total_count_attempt, total_count_hints)
-      @total_count_attempt = total_count_attempt
-      @total_count_hints = total_count_hints
+    def initialize(other_difficulty: {})
+      @difficulty_hash = DIFFICULTY_HASH.merge(other_difficulty)
       @array_hints = []
       @length_code = 4
       @min_num = 1
@@ -15,6 +19,17 @@ module GemCodebreakerAmidasd
       @count_attempt = 0
       generate_secret_code
       empty_result
+    end
+
+    def string_secertcode
+      @secret_code.join('')
+    end
+
+    def set_difficulty(difficulty)
+      return unless @difficulty_hash.has_key? difficulty
+      @difficulty = difficulty
+      @total_count_attempt = @difficulty_hash[difficulty][:total_count_attempt]
+      @total_count_hints = @difficulty_hash[difficulty][:total_count_hints]
     end
 
     def gets_hint
