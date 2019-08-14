@@ -4,7 +4,7 @@ require 'spec_helper'
 
 module GemCodebreakerAmidasd
   RSpec.describe GemCodebreaker do
-    let(:gemCodebreaker) { GemCodebreaker.new() }
+    let(:gemCodebreaker) { GemCodebreaker.new }
 
     specify 'gemCodebreaker attributes' do
       expect(gemCodebreaker).to respond_to(:error)
@@ -55,11 +55,9 @@ module GemCodebreakerAmidasd
 
     before do
       gemCodebreaker.set_difficulty(:easy)
-      # allow(gemCodebreaker).to receive(:set_difficulty).with(:easy)
     end
 
     describe '#initialize' do
-
       it 'sets total_count_attempt' do
         expect(gemCodebreaker.instance_variable_get(:@total_count_attempt)).to be(15)
       end
@@ -105,7 +103,7 @@ module GemCodebreakerAmidasd
 
         it 'new each time game starts' do
           code1 = secret_code
-          gemCodebreaker2 = GemCodebreaker.new()
+          gemCodebreaker2 = GemCodebreaker.new
           code2 = gemCodebreaker2.instance_variable_get(:@secret_code)
           expect(code1).not_to eql(code2)
         end
@@ -157,14 +155,14 @@ module GemCodebreakerAmidasd
       it 'adds error if no hints left' do
         gemCodebreaker.instance_variable_set(:@total_count_hints, 0)
         gemCodebreaker.gets_hint
-        expect(gemCodebreaker.instance_variable_get(:@error)).to match(/HintsEnd/)
+        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:HintsEnd)
       end
 
       it 'adds an error if all hints are already shown' do
         gemCodebreaker.instance_variable_set(:@secret_code, [1, 1, 1, 1])
         gemCodebreaker.gets_hint
         gemCodebreaker.gets_hint
-        expect(gemCodebreaker.instance_variable_get(:@error)).to match(/NoCluesAvailable/)
+        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:NoCluesAvailable)
       end
     end
 
@@ -173,13 +171,17 @@ module GemCodebreakerAmidasd
         gemCodebreaker.instance_variable_set(:@secret, [1, 2, 3, 4])
       end
 
+      it 'returns string_secretcode' do
+        expect(gemCodebreaker.string_secretcode).equal?('1234')
+      end
+
       it 'returns WrongCode' do
         gemCodebreaker.guess_code('1237')
-        expect(gemCodebreaker.instance_variable_get(:@error)).to match(/WrongCode/)
+        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:WrongCode)
         gemCodebreaker.guess_code('12373')
-        expect(gemCodebreaker.instance_variable_get(:@error)).to match(/WrongCode/)
+        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:WrongCode)
         gemCodebreaker.guess_code('asd')
-        expect(gemCodebreaker.instance_variable_get(:@error)).to match(/WrongCode/)
+        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:WrongCode)
         expect(gemCodebreaker.instance_variable_get(:@count_attempt)).to be(0)
       end
 

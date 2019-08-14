@@ -1,10 +1,9 @@
 module GemCodebreakerAmidasd
-  DIFFICULTY_HASH = {:easy => { total_count_attempt: 15, total_count_hints: 2 },
-                     :medium => { total_count_attempt: 10, total_count_hints: 1 },
-                     :hell => { total_count_attempt: 5, total_count_hints: 1 }}
+  DIFFICULTY_HASH = { easy: { total_count_attempt: 15, total_count_hints: 2 },
+                      medium: { total_count_attempt: 10, total_count_hints: 1 },
+                      hell: { total_count_attempt: 5, total_count_hints: 1 } }.freeze
 
   class GemCodebreaker
-
     attr_accessor :difficulty_hash, :difficulty
     attr_accessor :length_code, :max_num, :min_num
     attr_reader :total_count_attempt, :total_count_hints, :error, :win, :count_plus, :count_minus, :hint
@@ -21,12 +20,13 @@ module GemCodebreakerAmidasd
       empty_result
     end
 
-    def string_secertcode
+    def string_secretcode
       @secret_code.join('')
     end
 
     def set_difficulty(difficulty)
-      return unless @difficulty_hash.has_key? difficulty
+      return unless @difficulty_hash.key? difficulty
+
       @difficulty = difficulty
       @total_count_attempt = @difficulty_hash[difficulty][:total_count_attempt]
       @total_count_hints = @difficulty_hash[difficulty][:total_count_hints]
@@ -71,17 +71,17 @@ module GemCodebreakerAmidasd
     def search_hint
       cache_array = []
       @secret_code.each { |val| cache_array << val if !@array_hints.include?(val) && !cache_array.include?(val) }
-      @error = 'HintsEnd' unless @total_count_hints > @array_hints.size
-      @error = 'NoCluesAvailable' if cache_array.empty?
+      @error = :HintsEnd unless @total_count_hints > @array_hints.size
+      @error = :NoCluesAvailable if cache_array.empty?
       cache_array
     end
 
     def check_code(code_attempt)
       correct_code = to_array(code_attempt)
       empty_result
-      @error = 'WrongCode' unless code_attempt.match(/[1-6]+$/)
-      @error = 'WrongCode' unless correct_code.size == @length_code
-      return nil if @error == 'WrongCode'
+      @error = :WrongCode unless code_attempt.match(/[1-6]+$/)
+      @error = :WrongCode unless correct_code.size == @length_code
+      return nil if @error == :WrongCode
 
       status_game(correct_code)
       @count_attempt += 1
