@@ -71,9 +71,9 @@ module GemCodebreakerAmidasd
 
       cache_secret_code = secret_code.clone
       prepare_arrays(input_code, cache_secret_code)
-      status = STATUS[:win] unless cache_secret_code
+      @status = STATUS[:win] if cache_secret_code.empty?
       @count_attempt += 1
-      @status = STATUS[:lose] if @total_count_attempt <= @count_attempt && status == STATUS[:process_game]
+      @status = STATUS[:lose] if @total_count_attempt <= @count_attempt && @status == STATUS[:process_game]
     end
 
     def prepare_arrays(input_code, cache_secret_code)

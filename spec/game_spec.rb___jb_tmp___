@@ -157,14 +157,14 @@ module GemCodebreakerAmidasd
       it 'adds error if no hints left' do
         gemCodebreaker.instance_variable_set(:@total_count_hints, 0)
         gemCodebreaker.gets_hint
-        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:HintsEnd)
+        expect(gemCodebreaker.instance_variable_get(:@error)).to be(:HintsEnd)
       end
 
       it 'adds an error if all hints are already shown' do
         gemCodebreaker.instance_variable_set(:@secret_code, [1, 1, 1, 1])
         gemCodebreaker.gets_hint
         gemCodebreaker.gets_hint
-        expect(gemCodebreaker.instance_variable_get(:@error)).equal?(:NoCluesAvailable)
+        expect(gemCodebreaker.instance_variable_get(:@error)).to be(:NoCluesAvailable)
       end
     end
 
