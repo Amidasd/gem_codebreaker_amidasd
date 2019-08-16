@@ -80,9 +80,10 @@ module GemCodebreakerAmidasd
       del_index = []
       @secret_code.each_with_index do |val, index|
         del_index << index if val == input_code[index]
-        @count_plus += 1
+        @count_plus += 1 if val == input_code[index]
       end
-      del_index.each do |index|
+
+      del_index.reverse.each do |index|
         input_code.delete_at(index)
         cache_secret_code.delete_at(index)
       end

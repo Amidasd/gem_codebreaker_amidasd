@@ -170,7 +170,7 @@ module GemCodebreakerAmidasd
 
     describe 'guess_code' do
       before do
-        gemCodebreaker.instance_variable_set(:@secret, [1, 2, 3, 4])
+        gemCodebreaker.instance_variable_set(:@secret_code, [1, 2, 3, 4])
       end
 
       it 'returns string_secretcode' do
@@ -188,33 +188,35 @@ module GemCodebreakerAmidasd
       end
 
       it 'minus test' do
+        # puts gemCodebreaker.secret_code
         gemCodebreaker.guess_code('5555')
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
         gemCodebreaker.guess_code('1234')
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
         gemCodebreaker.guess_code('5155')
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(1)
         gemCodebreaker.guess_code('5125')
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(2)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(2)
         gemCodebreaker.guess_code('5123')
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(3)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(3)
         gemCodebreaker.guess_code('4321')
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(4)
-      end
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(4)
+        end
+
 
       it 'plus test' do
         gemCodebreaker.guess_code('5555')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(0)
         gemCodebreaker.guess_code('4321')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(0)
         gemCodebreaker.guess_code('1555')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(1)
         gemCodebreaker.guess_code('1255')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(2)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(2)
         gemCodebreaker.guess_code('1235')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(3)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(3)
         gemCodebreaker.guess_code('1234')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(4)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(4)
       end
 
       it 'process_game' do
@@ -237,59 +239,59 @@ module GemCodebreakerAmidasd
 
     describe 'test game logic' do
       it 'game 6543' do
-        gemCodebreaker.instance_variable_set(:@secret, [6, 5, 4, 3])
+        gemCodebreaker.instance_variable_set(:@secret_code, [6, 5, 4, 3])
 
         gemCodebreaker.guess_code('5643')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(2)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(2)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(2)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(2)
 
         gemCodebreaker.guess_code('6411')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(1)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(1)
 
         gemCodebreaker.guess_code('6544')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(3)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(3)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
 
         gemCodebreaker.guess_code('3456')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(0)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(4)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(4)
 
         gemCodebreaker.guess_code('6666')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(1)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
 
         gemCodebreaker.guess_code('2666')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(0)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(1)
 
         gemCodebreaker.guess_code('2222')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(0)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
       end
 
       it 'game 6666' do
-        gemCodebreaker.instance_variable_set(:@secret, [6, 6, 6, 6])
+        gemCodebreaker.instance_variable_set(:@secret_code, [6, 6, 6, 6])
 
         gemCodebreaker.guess_code('1661')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(2)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(2)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
       end
 
       it 'game 1234' do
-        gemCodebreaker.instance_variable_set(:@secret, [1, 2, 3, 4])
+        gemCodebreaker.instance_variable_set(:@secret_code, [1, 2, 3, 4])
 
         gemCodebreaker.guess_code('3124')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(1)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(3)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(3)
 
         gemCodebreaker.guess_code('1524')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(2)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(1)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(2)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(1)
 
         gemCodebreaker.guess_code('1234')
-        expect(gemCodebreaker.instance_variable_get(:@count_plus)).equal?(4)
-        expect(gemCodebreaker.instance_variable_get(:@count_minus)).equal?(0)
+        expect(gemCodebreaker.instance_variable_get(:@count_plus)).to be(4)
+        expect(gemCodebreaker.instance_variable_get(:@count_minus)).to be(0)
       end
     end
   end
