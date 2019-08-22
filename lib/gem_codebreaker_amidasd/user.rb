@@ -10,7 +10,7 @@ module GemCodebreakerAmidasd
     end
 
     def self.valid_name?(name:)
-      name.is_a?(String) && !name.empty? && name.length.between?(MIN_LENGTH_NAME, MAX_LENGTH_NAME)
+      name.length.between?(MIN_LENGTH_NAME, MAX_LENGTH_NAME)
     end
   end
 end

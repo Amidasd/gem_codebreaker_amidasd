@@ -1,9 +1,10 @@
 module GemCodebreakerAmidasd
   class Statistic
-    attr_reader :user, :game
+    attr_reader :user, :game, :date
     def initialize(user:, game:)
       @user = user
       @game = game
+      @date = DateTime.now
     end
 
     def self.sort_array(array)

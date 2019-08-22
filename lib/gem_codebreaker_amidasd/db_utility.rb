@@ -10,9 +10,7 @@ module GemCodebreakerAmidasd
       end
 
       def load_yaml_db(yml_db = PATH_CODEBREAKER_DB)
-        return YAML.load_file(yml_db) if File.exist?(yml_db)
-
-        []
+        return YAML.load_file(yml_db) if File.exist?(yml_db); []
       end
 
       def add_in_db(array:, user:, game:)
