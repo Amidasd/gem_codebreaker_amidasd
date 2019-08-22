@@ -17,8 +17,8 @@ module GemCodebreakerAmidasd
     end
 
     before do
-      gemCodebreaker.setDifficulty(:easy)
-      gemCodebreaker2.setDifficulty(:hell)
+      gemCodebreaker.difficulty_set(:easy)
+      gemCodebreaker2.difficulty_set(:hell)
     end
 
     it 'Statistic  set @user' do

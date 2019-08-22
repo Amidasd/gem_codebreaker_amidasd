@@ -9,7 +9,7 @@ module GemCodebreakerAmidasd
     let(:yml_db) { './db/codebreaker_Test_db.yml' }
 
     before do
-      gemCodebreaker.setDifficulty(:easy)
+      gemCodebreaker.difficulty_set(:easy)
     end
 
     after do

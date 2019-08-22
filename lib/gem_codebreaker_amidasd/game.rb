@@ -35,7 +35,7 @@ module GemCodebreakerAmidasd
       secret_code.join('')
     end
 
-    def setDifficulty(difficulty)
+    def difficulty_set(difficulty)
       return unless @difficulty_hash.key? difficulty
 
       @difficulty = difficulty

@@ -54,7 +54,7 @@ module GemCodebreakerAmidasd
     end
 
     before do
-      gemCodebreaker.setDifficulty(:easy)
+      gemCodebreaker.difficulty_set(:easy)
     end
 
     describe '#initialize' do
@@ -100,7 +100,7 @@ module GemCodebreakerAmidasd
         it 'new each time game starts' do
           code1 = secret_code
           gemCodebreaker2 = Game.new
-          gemCodebreaker2.setDifficulty(:easy)
+          gemCodebreaker2.difficulty_set(:easy)
           code2 = gemCodebreaker2.instance_variable_get(:@secret_code)
           expect(code1).not_to eql(code2)
         end
